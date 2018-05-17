@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.6"
+
+env:
+  - DJANGO=2.0.0
+
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+  - pip install django==$DJANGO --quiet
+
+before_script:
+  - python manage.py migrate
+
+script:
+  - coverage run --source=acidentes manage.py test
+
+after_success:
+  - coveralls
